@@ -1,4 +1,4 @@
-# TDD Excercise 
+# TDD Exercise 
 Requirements: 
 Maak een nieuwe class ArrayOfInts. 
 Deze bevat een aantal functies die bewerkingen doen op arrays van integers.

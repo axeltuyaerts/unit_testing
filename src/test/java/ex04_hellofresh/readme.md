@@ -49,7 +49,7 @@ Dit is het aantal porties waarvoor we de ingrediëntenlijst willen afdrukken.
 | naam            | unit == 1 | unit > 1 | amount   | getText(1) result | getText(2) result |
 |-----------------|-----------|----------|----------|-------------------|-------------------|
 | suiker          | lepel     | lepels   | 1        | 1 lepel suiker    | 2 lepels suiker   |
-| suiker          | lepel     | lepels   | 2        | 2 lepels suiker   | 2 lepels suiker   |
+| suiker          | lepel     | lepels   | 2        | 4 lepels suiker   | 2 lepels suiker   |
 | bloem           | gram      | gram     | 20       | 20 gram bloem     | 40 gram bloem     |
 | zout naar smaak | **null**  | **null** | **null** | zout naar smaak   | zout naar smaak   |
 | **null**        | ei        | eieren   | 1        | 1 ei              | 2 eieren          |
