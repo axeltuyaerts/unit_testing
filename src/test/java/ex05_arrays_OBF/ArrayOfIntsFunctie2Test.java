@@ -9,32 +9,32 @@ class ArrayOfIntsFunctie2Test {
     private final ArrayOfInts arrayOfInts = new ArrayOfInts();
 
     @Test
-    void test1() {
-        int result = arrayOfInts.functie2(new int[]{2, 4});
+    void sumOfEven_happy() {
+        int result = arrayOfInts.sumOfEven(new int[]{2, 4});
         assertEquals(6, result);
     }
 
     @Test
-    void test2() {
-        int result = arrayOfInts.functie2(new int[]{1, 2, 7, 6});
+    void sumOfEven_otherHappy() {
+        int result = arrayOfInts.sumOfEven(new int[]{1, 2, 7, 6});
         assertEquals(8, result);
     }
 
     @Test
-    void test3() {
-        int result = arrayOfInts.functie2(new int[]{7, 1, 3});
+    void sumOfEven_noEvenNumbers() {
+        int result = arrayOfInts.sumOfEven(new int[]{7, 1, 3});
         assertEquals(0, result);
     }
 
     @Test
-    void tets4() {
-        int result = arrayOfInts.functie2(new int[]{});
+    void sumOfEvent_emptyArray() {
+        int result = arrayOfInts.sumOfEven(new int[]{});
         assertEquals(0, result);
     }
 
     @Test
-    void test5() {
-        int result = arrayOfInts.functie2(null);
+    void sumOfEven_parametersIsNull() {
+        int result = arrayOfInts.sumOfEven(null);
         assertEquals(0, result);
     }
 
