@@ -1,22 +1,22 @@
 package ex202_contract;
 
 public class SignatureService {
-    private final ConnectivePlugin connectivePlugin;
+    private final ConnectivePluginAdapter connectivePluginAdapter;
 
     private String connectiveUrl;
     private String connectiveUserId;
     private String connectivePassword;
 
-    public SignatureService(ConnectivePlugin connectivePlugin) {
-        this.connectivePlugin = connectivePlugin;
+    public SignatureService(ConnectivePluginAdapter connectivePluginAdapter) {
+        this.connectivePluginAdapter = connectivePluginAdapter;
     }
 
     public SignatureResult signDocument(Document document, Person person) {
-        if (connectivePlugin.isPluginReady()) {
+        if (connectivePluginAdapter.isPluginReady()) {
             try {
-                ConnectiveConnection connection = connectivePlugin.connectToPlatform(connectiveUrl, connectiveUserId, connectivePassword);
-                connectivePlugin.uploadDocumentToSign(connection, document);
-                Document signedDocument = connectivePlugin.requestSignatureFromUser(connection, person);
+                ConnectiveConnection connection = connectivePluginAdapter.connectToPlatform(connectiveUrl, connectiveUserId, connectivePassword);
+                connectivePluginAdapter.uploadDocumentToSign(connection, document);
+                Document signedDocument = connectivePluginAdapter.requestSignatureFromUser(connection, person);
                 return SignatureResult.success(signedDocument);
             }
             catch (ConnectiveException e) {

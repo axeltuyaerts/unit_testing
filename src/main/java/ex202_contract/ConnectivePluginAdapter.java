@@ -6,23 +6,26 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Base64;
 
-public class ConnectivePlugin {
+public class ConnectivePluginAdapter {
+    FakePlugin fakePlugin = new FakePlugin();
+
     public boolean isPluginReady() {
         // check if browser session is active and Connective plugin is loaded
-        return true;
+        return fakePlugin.readyForSignature();
     }
 
     public ConnectiveConnection connectToPlatform(String connectiveUrl, String connectiveUserId, String connectivePassword) {
         HttpResponse.BodyHandler<String> responseBodyHandler = HttpResponse.BodyHandlers.ofString();
         try {
             HttpResponse<String> httpResponse = getHttpClient().send(HttpRequest.newBuilder()
-                            .header("userId", Base64.getEncoder().encodeToString(connectiveUrl.getBytes()))
-                            .header("password", Base64.getEncoder().encodeToString(connectiveUrl.getBytes()))
+                            .header("x-user-id", Base64.getEncoder().encodeToString(connectiveUserId.getBytes(StandardCharsets.UTF_8)))
+                            .header("x-password", Base64.getEncoder().encodeToString(connectivePassword.getBytes(StandardCharsets.UTF_8)))
                             .uri(URI.create(connectiveUrl + "/connect"))
                             .GET()
                             .build(),
@@ -55,7 +58,7 @@ public class ConnectivePlugin {
         HttpResponse.BodyHandler<String> responseBodyHandler = HttpResponse.BodyHandlers.ofString();
         try {
             HttpResponse<String> httpResponse = getHttpClient().send(HttpRequest.newBuilder()
-                            .header("bearer", Base64.getEncoder().encodeToString(connection.getBearerToken().getBytes()))
+                            .header("x-bearer-token", Base64.getEncoder().encodeToString(connection.getBearerToken().getBytes()))
                             .uri(URI.create(connection.getUrl() + "/upload"))
                             .POST(HttpRequest.BodyPublishers.ofByteArray(document.toByteArray()))
                             .build(),
@@ -73,7 +76,19 @@ public class ConnectivePlugin {
     }
 
     public Document requestSignatureFromUser(ConnectiveConnection connection, Person person) {
-        // Use the plugin to fetch the user digital signature (ex. ItsMe)
-        return new Document();
+        byte[] signedDocument = fakePlugin.requestSignatureFromUser(connection.getUrl(), connection.getBearerToken(), person.getId(), person.getIdType());
+
+        return new Document(signedDocument);
+    }
+
+    private static class FakePlugin {
+        public boolean readyForSignature() {
+            return true;
+        }
+
+        public byte[] requestSignatureFromUser(String url, String bearerToken, String personId, Person.PersonIdType idType) {
+            // fetches the user digital signature (ex. ItsMe)
+            return new byte[]{};
+        }
     }
 }
