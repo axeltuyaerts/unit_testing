@@ -10,25 +10,25 @@ public class ArrayOfIntsSumOf3SmallestIntsTest {
 
     @Test
     void happyflow() {
-        int result = arrayOfInts.sumOf3SmallestInts(new int[]{1, 1, 1, 5, 7, 6, 4});
-        assertEquals(3, result);
+        int result = arrayOfInts.sumOf3SmallestInts(new int[]{1, 2, 3});
+        assertEquals(6, result);
     }
 
     @Test
-    void null_returns0() {
+    void smallArray(){
+        int result = arrayOfInts.sumOf3SmallestInts(new int[] {1,2});
+        assertEquals(3,result);
+    }
+
+    @Test
+    void returnNull() {
         int result = arrayOfInts.sumOf3SmallestInts(null);
         assertEquals(0, result);
     }
 
     @Test
-    void empty_array() {
+    void emptyArray(){
         int result = arrayOfInts.sumOf3SmallestInts(new int[]{});
-        assertEquals(0, result);
-    }
-
-    @Test
-    void small_array() {
-        int result = arrayOfInts.sumOf3SmallestInts(new int[]{1, 1});
-        assertEquals(2, result);
+        assertEquals(0,result);
     }
 }

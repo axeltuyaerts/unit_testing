@@ -28,7 +28,36 @@ public class ArrayOfInts {
     }
 
     public int sumOfXLargest(int[] arrayOfInts, int x) {
-        return 0;
+        if (arrayOfInts == null || arrayOfInts.length == 0) return 0;
+        if (x == 0) return 0;
+
+        int[] copy = Arrays.copyOf(arrayOfInts, arrayOfInts.length);
+        Arrays.sort(copy);
+
+        int from = x > arrayOfInts.length ? 0 : arrayOfInts.length - x;
+        return sumOfInts(Arrays.copyOfRange(copy, from, arrayOfInts.length));
+    }
+
+    public int countMostPopularNumber(int[] arrayOfInts) {
+        if (arrayOfInts == null || arrayOfInts.length == 0) return 0;
+        int[] copy = Arrays.copyOf(arrayOfInts, arrayOfInts.length);
+        Arrays.sort(copy);
+
+        int count = 1;
+        int maxcount = 1;
+        int lastValue = copy[0];
+
+        for (int i = 1; i < copy.length; i++) {
+            if (copy[i] == lastValue) {
+                count++;
+            } else {
+                if (count > maxcount) maxcount = count;
+                count = 1;
+                lastValue = copy[i];
+            }
+        }
+        if (count > maxcount) maxcount = count;
+        return maxcount;
     }
 
     public static void main(String[] args) {
