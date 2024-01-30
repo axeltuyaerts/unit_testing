@@ -45,6 +45,13 @@ public class FindCommonElementsTest {
     }
 
     @Test
+    void foundSameNumberOnceRight() {
+        int[] result = arrayOfInts.findCommonElements(new int[]{1, 1, 3}, new int[]{4, 1});
+        int[] expected = new int[]{1};
+        assertArrayEquals(expected, result);
+    }
+
+    @Test
     void foundSameNumberOnceLeft() {
         int[] result = arrayOfInts.findCommonElements(new int[]{1, 3}, new int[]{1, 1, 4});
         int[] expected = new int[]{1};
@@ -52,11 +59,17 @@ public class FindCommonElementsTest {
     }
 
     @Test
-    void foundSameNumberOnceRight() {
-        int[] result = arrayOfInts.findCommonElements(new int[]{1, 1, 3}, new int[]{4, 1});
-        int[] expected = new int[]{1};
+    void leftNull() {
+        int[] result = arrayOfInts.findCommonElements(null, new int[]{1, 1, 4});
+        int[] expected = new int[]{};
         assertArrayEquals(expected, result);
     }
 
+    @Test
+    void rightNull() {
+        int[] result = arrayOfInts.findCommonElements(new int[]{1, 1, 4}, null);
+        int[] expected = new int[]{};
+        assertArrayEquals(expected, result);
+    }
 
 }
