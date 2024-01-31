@@ -1,8 +1,26 @@
 package ex03_more_arrays;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ArrayOfInts {
+
+    public int[] findDuplicateValues(int[] arrayOfInts) {
+        if (arrayOfInts == null) return new int[]{};
+
+        HashMap<Integer, Integer> count = new HashMap<>();
+        for (int number : arrayOfInts) {
+            Integer value = count.get(number);
+            count.put(number, value == null ? 1 : value + 1);
+        }
+        int[] duplicates = new int[arrayOfInts.length];
+        int nrOfDuplicates = 0;
+        for (Map.Entry<Integer, Integer> entry : count.entrySet()) {
+            if (entry.getValue() > 1) duplicates[nrOfDuplicates++] = entry.getKey();
+        }
+        return Arrays.copyOf(duplicates,nrOfDuplicates);
+    }
 
     public int[] findCommonElements(int[] arrLeft, int[] arrRight) {
         if (arrLeft == null || arrRight == null) return new int[]{};
